@@ -28,7 +28,7 @@ namespace AutoLote.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Modelos modelos = db.Modelos.Include(m => m.Marcas).FirstOrDefault();
+            Modelos modelos  = db.Modelos.Include(m => m.Marcas).FirstOrDefault();
             if (modelos == null)
             {
                 return HttpNotFound();
