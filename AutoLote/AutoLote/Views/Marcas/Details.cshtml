@@ -1,0 +1,37 @@
+﻿@model AutoLote.Models.Marcas
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Marcas</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Descripcion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Descripcion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.UrlImagen)
+        </dt>
+
+        <dd>
+            @if (Model.UrlImagen != null)
+            {
+                <img src="@Url.Content(Model.UrlImagen)" alt="@Model.MarcaID" />
+            }
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.MarcaID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
