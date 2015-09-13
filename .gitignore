@@ -8,6 +8,12 @@
 *.user
 *.userosscache
 *.sln.docstates
+*.mdf
+*.ldf
+*.map
+*.ps1
+*.cache
+*.pdb
 
 # Build results
 [Dd]ebug/
@@ -108,5 +114,12 @@ ClientBin/
 *.publishsettings
 node_modules/
 orleans.codegen.cs
-
+packages
+NuGet.exe
+_[Ss]cripts
+*.exe
+*.dll
+*.nupkg
+*.ncrunchsolution
+*.dot[Cc]over
 _Pvt_Extensions
