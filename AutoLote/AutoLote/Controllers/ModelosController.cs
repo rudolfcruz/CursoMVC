@@ -128,5 +128,21 @@ namespace AutoLote.Controllers
             }
             base.Dispose(disposing);
         }
+        public ActionResult ListaModelosMarcas(int id)
+        {
+            var lista = db.Modelos.Where(x => x.MarcaId == id);
+            if(lista.Any())
+            {
+                var consulta = (from i in lista
+                                select new
+                                {
+                                    Id = i.MarcaId,
+                                    Modelo = i.Descripcion,
+                                    Selected = false
+                                });
+                return Json(consulta, JsonRequestBehavior.AllowGet);
+            }
+            return RedirectToAction("index");
+        }
     }
 }

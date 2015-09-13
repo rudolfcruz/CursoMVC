@@ -123,5 +123,16 @@ namespace AutoLote.Controllers
             }
             base.Dispose(disposing);
         }
+        public ActionResult ListaTipos()
+        {
+            var listaTipos = db.Tipos;
+
+            if(!listaTipos.Any())
+            {
+                return HttpNotFound();
+            }
+
+            return PartialView(listaTipos);
+        }
     }
 }

@@ -1,0 +1,82 @@
+﻿@model AutoLote.Models.Automovil
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Automovil</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.ModelosID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ModelosID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TiposID)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TiposID)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TieneAireAcondicionado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TieneAireAcondicionado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Comentarios)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Comentarios)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Anio)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Anio)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Color)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Color)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaPublicacion)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaPublicacion)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Email)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Email)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.AutomovilID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

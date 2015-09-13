@@ -24,6 +24,8 @@ namespace AutoLote.Models
         public System.Data.Entity.DbSet<AutoLote.Models.Marcas> Marcas { get; set; }
 
         public System.Data.Entity.DbSet<AutoLote.Models.Modelos> Modelos { get; set; }
+
+        public System.Data.Entity.DbSet<AutoLote.Models.Automovil> Automovils { get; set; }
     
     }
 }
