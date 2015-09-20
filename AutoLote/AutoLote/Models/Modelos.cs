@@ -10,7 +10,9 @@ namespace AutoLote.Models
     {
         [Key]
         public int ModeloID { get; set; }
-        public int MarcaId { get; set;}   
+        [Required(ErrorMessage = "Seleccione la marca del modelo")]
+        public int MarcaId { get; set;}
+        [Display(Name = "Modelo")]
         [Required(ErrorMessage="Ingre la descripcion del Modelo")]
         public string Descripcion { get; set; }
         public Marcas Marcas { get; set; }

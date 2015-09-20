@@ -9,8 +9,7 @@ namespace AutoLote.Migrations
     {
         public Configuration()
         {
-            AutomaticMigrationsEnabled = true;
-            ContextKey = "AutoLote.Models.DBContext";
+            AutomaticMigrationsEnabled = false;
         }
 
         protected override void Seed(AutoLote.Models.DBContext context)

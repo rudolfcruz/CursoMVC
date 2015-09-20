@@ -136,7 +136,7 @@ namespace AutoLote.Controllers
                 var consulta = (from i in lista
                                 select new
                                 {
-                                    Id = i.MarcaId,
+                                    Id = i.ModeloID,
                                     Modelo = i.Descripcion,
                                     Selected = false
                                 });

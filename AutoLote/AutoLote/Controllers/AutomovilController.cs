@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using AutoLote.Models;
+using AutoLote.Helpers;
 
 namespace AutoLote.Controllers
 {
@@ -17,7 +18,11 @@ namespace AutoLote.Controllers
         // GET: Automovil
         public ActionResult Index()
         {
-            return View(db.Automovils.ToList());
+            return View(db.Automovils
+                .Include("Modelo")
+                .Include("Modelo.Marcas")
+                .Include("Tipo")
+                .Include("AutomovilImagenes").ToList());
         }
 
         // GET: Automovil/Details/5
@@ -47,10 +52,24 @@ namespace AutoLote.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "AutomovilID,ModelosID,TiposID,TieneAireAcondicionado,Comentarios,Anio,Color,FechaPublicacion,Email")] Automovil automovil)
+        //[Bind(Include = "AutomovilID,ModelosID,TiposID,TieneAireAcondicionado,Comentarios,Anio,Color,FechaPublicacion,Email")]
+        public ActionResult Create( Automovil automovil)
         {
+            int tipoID = int.Parse(Request.Form["ModelosID"].ToString());
+
             if (ModelState.IsValid)
             {
+                if (automovil.AutomovilImagenes != null && automovil.AutomovilImagenes.Any())
+                {
+                    var guardarimagen = new clsGuardarImagen();
+                    foreach (var imagen in automovil.AutomovilImagenes)
+                    {
+                        string nombreArchvivo = Guid.NewGuid().ToString();
+                        imagen.UrlImagenMiniatura = guardarimagen.RedimensionarAndGuardar(nombreArchvivo, imagen.ImagenSubida.InputStream, Tamanios.Miniatura, true);
+                        imagen.UrlImagenMediana = guardarimagen.RedimensionarAndGuardar(nombreArchvivo, imagen.ImagenSubida.InputStream, Tamanios.Mediana, true);
+                    }
+                }
+                automovil.ModeloID = tipoID;
                 db.Automovils.Add(automovil);
                 db.SaveChanges();
                 return RedirectToAction("Index");

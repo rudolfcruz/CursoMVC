@@ -10,10 +10,11 @@ namespace AutoLote.Models
     {
         [Key]
         public int AutomovilID { get; set; }
-        public int ModelosID { get; set; }
+        [Required]
+        public int ModeloID { get; set; }
         public Modelos Modelo { get; set; }
         [Required]
-        public int TiposID { get; set; }
+        public int TipoID { get; set; }
         public Tipos Tipo { get; set; }
         [Display(Name="Tiene A/C")]
         public bool TieneAireAcondicionado { get; set; }
@@ -21,9 +22,10 @@ namespace AutoLote.Models
         [Display(Name="Año")]
         public int Anio { get; set; }
         public string Color { get; set; }
-        [Display(Name="Año Publicación")]
+
+        [Display(Name="Feha Publicación")]
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString="{0:MM/dd/yyyy}",ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString="{0:dd/MM/yyyy}",ApplyFormatInEditMode = true)]
         public DateTime FechaPublicacion { get; set; }
         public string Email { get; set; }
         public List<AutomovilImagenes> AutomovilImagenes { get; set; }

@@ -7,14 +7,7 @@
     return false;
 });
 
-//$('#hola').on("click", function () {
-//    alert('holahola');
-//});
-//$('a.deleteRow').click(function () {
-//    alert('holahola');
-//});
-
-$('#hola').click(function () {
+$(document).on("click", ".deleteRow", function () {
     var id = $(this)[0].id;
     $(this).parents("div.editorRow:first").remove();
 
@@ -35,7 +28,7 @@ $("#add").on('click', function () {
     var htm = '<div class="editorRow">';
     htm += '<input type="hidden" autoComplete = "off" name = "AutomovilImagenes.index" value = "' + gui + '"/>';
     htm += 'Imagen: <input type = "file" name = "Automovilimagenes[' + gui + '].ImagenSubida" id = "xyzy" />';
-    htm += '<button type="button" id="hola" class="deleteRow">Eliminar</button></div>';
+    htm += '<a href="#" class="deleteRow">Eliminar</a></div>';
     $('#Automovilimagenes').append(htm);
     return false;
 });

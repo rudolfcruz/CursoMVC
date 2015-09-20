@@ -7,13 +7,13 @@ namespace AutoLote.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.1.1-30610")]
-    public sealed partial class InitialCreate : IMigrationMetadata
+    public sealed partial class DosBaseDatos : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(InitialCreate));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(DosBaseDatos));
         
         string IMigrationMetadata.Id
         {
-            get { return "201509040259225_InitialCreate"; }
+            get { return "201509200922453_DosBaseDatos"; }
         }
         
         string IMigrationMetadata.Source

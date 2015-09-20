@@ -169,9 +169,13 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\clsGuardarImagen.cs" />
-    <Compile Include="Migrations\201509040259225_InitialCreate.cs" />
-    <Compile Include="Migrations\201509040259225_InitialCreate.Designer.cs">
-      <DependentUpon>201509040259225_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\201509200842112_NuevaBaseDatos.cs" />
+    <Compile Include="Migrations\201509200842112_NuevaBaseDatos.Designer.cs">
+      <DependentUpon>201509200842112_NuevaBaseDatos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201509200922453_DosBaseDatos.cs" />
+    <Compile Include="Migrations\201509200922453_DosBaseDatos.Designer.cs">
+      <DependentUpon>201509200922453_DosBaseDatos.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -315,8 +319,11 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201509040259225_InitialCreate.resx">
-      <DependentUpon>201509040259225_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201509200842112_NuevaBaseDatos.resx">
+      <DependentUpon>201509200842112_NuevaBaseDatos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201509200922453_DosBaseDatos.resx">
+      <DependentUpon>201509200922453_DosBaseDatos.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

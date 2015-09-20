@@ -16,11 +16,11 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
-            @Html.LabelFor(model => model.TiposID, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.TipoID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
 
                 @{Html.RenderAction("ListaTipos", "Tipos");}
-                @Html.ValidationMessageFor(model => model.TiposID, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.TipoID, "", new { @class = "text-danger" })
             </div>
         </div>
         <div class="form-group">
@@ -94,15 +94,18 @@
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
         </div>
-        <a href="#" id="add">Agregar Imagenes</a>
-        <div id="Automovilimagenes"></div>
-
         <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+            <a href="#" id="add" class="control-label col-md-2">Agregar Imagenes</a>
+            <div class="col-md-10">
+                <div id="Automovilimagenes"></div>
             </div>
         </div>
-    </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </div>
+            </div>
+        </div>
 }
 
 <div>
