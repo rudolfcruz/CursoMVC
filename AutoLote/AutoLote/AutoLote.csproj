@@ -227,6 +227,7 @@
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\Autolote-DatePicker.js" />
+    <Content Include="Scripts\Autolote-Imagenes.js" />
     <Content Include="Scripts\Autolote-MarcasModelos.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

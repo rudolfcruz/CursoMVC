@@ -47,7 +47,8 @@ namespace AutoLote
 
             bundles.Add(new ScriptBundle("~/bundles/Autole").Include(
             "~/Scripts/Autolote-MarcasModelos.js",
-            "~/Scripts/Autolote-DatePicker.js"));
+            "~/Scripts/Autolote-DatePicker.js",
+            "~/Scripts/Autolote-Imagenes.js"));
         }
     }
 }
