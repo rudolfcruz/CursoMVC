@@ -79,13 +79,18 @@ namespace AutoLote.Controllers
         }
 
         // GET: Automovil/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(int? id = 0)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Automovil automovil = db.Automovils.Find(id);
+            Automovil automovil = db.Automovils
+                .Include("Modelo")
+                .Include("Modelo.Marcas")
+                .Include("Tipo")
+                .Include("AutomovilImagenes")
+                .FirstOrDefault(x => x.AutomovilID == id);
             if (automovil == null)
             {
                 return HttpNotFound();
@@ -142,6 +147,59 @@ namespace AutoLote.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        public ActionResult ListaTiposAutomovil(int id = 0)
+        {
+            var tipos = db.Tipos;
+            var autoMovil = db.Automovils.FirstOrDefault(x => x.AutomovilID == id);
+            if (autoMovil != null)
+            {
+                var query = (from i in db.Tipos
+                             join a in db.Automovils.Where(x => x.AutomovilID == id)
+                                 on i.TipoID equals a.TipoID into joined
+                             from a in joined.DefaultIfEmpty()
+                             select new
+                             {
+                                 Id = i.TipoID,
+                                 Tipo = i.Descripcion,
+                                 selected = a != null
+                             });
+                return Json(query, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var query = (from i in db.Tipos
+                             select new
+                             {
+                                 Id = i.TipoID,
+                                 Tipo = i.Descripcion,
+                                 selected = false
+                             });
+                return Json(query, JsonRequestBehavior.AllowGet);
+            }
+        }
+        public ActionResult ListaModelosAutomovil(int id = 0)
+        {
+            var autoMovil = db.Automovils
+                .Include("Modelo")
+                .Include("Modelo.Marcas")
+                .FirstOrDefault(x => x.AutomovilID == id);
+            if (autoMovil != null)
+            {
+                var marcaID = autoMovil.Modelo.MarcaId;
+                var query = (from i in db.Modelos.Where(x => x.MarcaId == marcaID)
+                             join a in db.Automovils.Where(x => x.AutomovilID == id)
+                                 on i.ModeloID equals a.Modelo.ModeloID into joined
+                             from a in joined.DefaultIfEmpty()
+                             select new
+                             {
+                                 Id = i.ModeloID,
+                                 Modelo = i.Descripcion,
+                                 selected = a != null
+                             });
+                return Json(query, JsonRequestBehavior.AllowGet);
+            }
+            return RedirectToAction("Index");
         }
     }
 }

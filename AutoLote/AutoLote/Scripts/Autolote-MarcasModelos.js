@@ -13,8 +13,8 @@
     });
 
     var id = 0;
-    if ($("#Id").val()) {
-        id = $("#Id").val();
+    if ($("#AutomovilID").val()) {
+        id = $("#AutomovilID").val();
     }
 
     $.getJSON('/Marcas/ListaMarcas/' + id, function (data) {
@@ -32,16 +32,16 @@
     });
 
     function MostrarModelosPorMarca() {
-        $.getJSON('/Automovil/ListaModelosPorAutomovil/' + $("#Id").val(), function (data) {
+        $.getJSON('/Automovil/ListaModelosAutomovil/' + $("#AutomovilID").val(), function (data) {
             var items = $("#ModelosID")[0].innerHTML;
             $.each(data, function (i, modelo) {
-                if (modelo.Selected) {
+                if (modelo.selected) {
                     items += "<option value='" + modelo.Id + "'selected>" + modelo.Modelo + "</option>";
                 } else {
                     items += "<option value='" + modelo.Id + "'>" + modelo.Modelo + "</option>";
                 }
             });
-            $('#ModelosId').html(items);
+            $('#ModelosID').html(items);
         });
     }
 });

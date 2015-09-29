@@ -139,13 +139,33 @@ namespace AutoLote.Controllers
         }
         public ActionResult ListaMarcas(int id)
         {
-            var consulta =(from i in db.Marcas 
-                               select new{
-                                   Id = i.MarcaID,
-                                   Marca = i.Descripcion,
-                                   selected = false
-                               });
-            return Json(consulta, JsonRequestBehavior.AllowGet);
+            var marcas = db.Marcas;
+            var autoMovil = db.Automovils.Where(x => x.AutomovilID == id);
+            if (autoMovil != null)
+            {
+                var query = (from i in db.Marcas
+                             join a in db.Automovils.Where(x => x.AutomovilID == id)
+                                 on i.MarcaID equals a.Modelo.Marcas.MarcaID into joined
+                             from a in joined.DefaultIfEmpty()
+                             select new
+                             {
+                                 Id = i.MarcaID,
+                                 Marca = i.Descripcion,
+                                 selected = a != null
+                             });
+                return Json(query, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                var consulta = (from i in db.Marcas
+                                select new
+                                {
+                                    Id = i.MarcaID,
+                                    Marca = i.Descripcion,
+                                    selected = false
+                                });
+                return Json(consulta, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }

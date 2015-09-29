@@ -49,6 +49,9 @@ namespace AutoLote
             "~/Scripts/Autolote-MarcasModelos.js",
             "~/Scripts/Autolote-DatePicker.js",
             "~/Scripts/Autolote-Imagenes.js"));
+
+            bundles.Add(new ScriptBundle("~/bundles/AutoleTipos").Include(
+            "~/Scripts/Autolote-Tipos.js"));
         }
     }
 }

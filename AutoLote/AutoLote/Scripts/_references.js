@@ -12,3 +12,4 @@
 /// <reference path="jquery-1.10.2.js" />
 /// <reference path="jquery-ui-1.11.2.min.js" />
 /// <reference path="autolote-imagenes.js" />
+/// <reference path="autolote-tipos.js" />

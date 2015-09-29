@@ -7,7 +7,7 @@
 <h2>Edit</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Edit", "Automovil", FormMethod.Post, new { id = "MarcaModeloID", enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
@@ -16,23 +16,27 @@
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.AutomovilID)
-
         <div class="form-group">
-            @Html.LabelFor(model => model.ModelosID, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Tipo.Descripcion, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.ModelosID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.ModelosID, "", new { @class = "text-danger" })
+                @Html.DropDownList("TipoID", new SelectList(new string[] {""}))
+                @Html.ValidationMessageFor(model => model.TipoID, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
-            @Html.LabelFor(model => model.TiposID, htmlAttributes: new { @class = "control-label col-md-2" })
+            @Html.LabelFor(model => model.Modelo.Marcas.MarcaID, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.TiposID, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.TiposID, "", new { @class = "text-danger" })
+                @Html.DropDownList("MarcaID", new SelectList(new string[] { "Seleccione una marca" }))
             </div>
         </div>
-
+        <div class="form-group">
+            <label id="Modelos" class="control-label col-md-2">Modelos</label>
+            <div id="ModelosDivID" class="col-lg-10">
+                <select id="ModelosID" name="ModelosID">
+                    <option>Seleccione un Modelo</option>
+                </select>
+            </div>
+        </div>
         <div class="form-group">
             @Html.LabelFor(model => model.TieneAireAcondicionado, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -54,11 +58,18 @@
         <div class="form-group">
             @Html.LabelFor(model => model.Anio, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Anio, new { htmlAttributes = new { @class = "form-control" } })
+                @{
+                  Model.Anio = DateTime.Now.Year;
+                  var anios = new List<string>();
+                  for (int i = DateTime.Now.Year; i > 1980; i--) //el i-- es porque es forma decendente
+                  {
+                      anios.Add(i.ToString());
+                  }
+                }
+                @Html.DropDownListFor(r => Model.Anio, new SelectList(anios))
                 @Html.ValidationMessageFor(model => model.Anio, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <div class="form-group">
             @Html.LabelFor(model => model.Color, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -82,7 +93,23 @@
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        <div class="form-group">
+            <a href="#" id="add" class="control-label col-md-2">Agregar Imagenes</a>
+            <div class="col-md-10">
+                <div id="Automovilimagenes">
+                    @if(Model.AutomovilImagenes != null)
+                    {
+                        foreach (var imagen in Model.AutomovilImagenes)
+                        {
+                            <div class="editorRow">
+                                <img src="@Url.Content(imagen.UrlImagenMiniatura)" alt="@imagen.AutoimagenesID"/>
+                                <a href="#" class="deleteRow" id="@imagen.AutoimagenesID">Eliminar</a>
+                            </div> 
+                        }
+                    }
+                </div>
+            </div>
+        </div>
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Save" class="btn btn-default" />
@@ -96,5 +123,9 @@
 </div>
 
 @section Scripts {
+    @Styles.Render("~/Content/themes/base/css")
+    @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/Autole")
+    @Scripts.Render("~/bundles/AutoleTipos")
 }
