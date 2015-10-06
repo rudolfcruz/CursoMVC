@@ -163,19 +163,17 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\MarcasController.cs" />
+    <Compile Include="Controllers\MessageController.cs" />
     <Compile Include="Controllers\ModelosController.cs" />
     <Compile Include="Controllers\TiposController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\clsAlerts.cs" />
     <Compile Include="Helpers\clsGuardarImagen.cs" />
-    <Compile Include="Migrations\201509200842112_NuevaBaseDatos.cs" />
-    <Compile Include="Migrations\201509200842112_NuevaBaseDatos.Designer.cs">
-      <DependentUpon>201509200842112_NuevaBaseDatos.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201509200922453_DosBaseDatos.cs" />
-    <Compile Include="Migrations\201509200922453_DosBaseDatos.Designer.cs">
-      <DependentUpon>201509200922453_DosBaseDatos.cs</DependentUpon>
+    <Compile Include="Migrations\201510030313444_Initial.cs" />
+    <Compile Include="Migrations\201510030313444_Initial.Designer.cs">
+      <DependentUpon>201510030313444_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -306,6 +304,7 @@
     <Content Include="Views\Automovil\Edit.cshtml" />
     <Content Include="Views\Automovil\Index.cshtml" />
     <Content Include="Views\Tipos\ListaTipos.cshtml" />
+    <Content Include="Views\Message\_Message.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -320,11 +319,8 @@
     <None Include="Project_Readme.html" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201509200842112_NuevaBaseDatos.resx">
-      <DependentUpon>201509200842112_NuevaBaseDatos.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201509200922453_DosBaseDatos.resx">
-      <DependentUpon>201509200922453_DosBaseDatos.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201510030313444_Initial.resx">
+      <DependentUpon>201510030313444_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

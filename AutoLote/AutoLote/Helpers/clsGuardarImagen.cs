@@ -16,7 +16,7 @@ namespace AutoLote.Helpers
     }
     public class clsGuardarImagen
     {
-        public string RedimensionarAndGuardar(string nombreArchivo, Stream imageBuffer, Tamanios tamanios, bool cuadro)
+        public string RedimensionarAndGuardar(string nombreArchivo, Stream imageBuffer, Tamanios tamanios, bool cuadro, string opcion)
         {
             try
             {
@@ -31,15 +31,15 @@ namespace AutoLote.Helpers
                 imagesRuta = serverRuta + "Content\\Imagenes\\";
                 if (tamanios == Tamanios.Miniatura)
                 {
-                    urlImagen += "~/content/Imagenes/Miniatura/" + nombreArchivo + ".jpg";
+                    urlImagen += "~/content/Imagenes/Miniatura/" + Path.GetFileName(nombreArchivo) + ".jpg";
                     maxLadoTamanio = 80;
-                    saveRuta = imagesRuta + "Miniatura\\" + nombreArchivo + ".jpg";
+                    saveRuta = imagesRuta + "Miniatura\\" + Path.GetFileName(nombreArchivo) + ".jpg";
                 }
                 else
                 {
-                    urlImagen += "~/content/Imagenes/Mediana/" + nombreArchivo + ".jpg";
+                    urlImagen += "~/content/Imagenes/Mediana/" + Path.GetFileName(nombreArchivo) + ".jpg";
                     maxLadoTamanio = 600;
-                    saveRuta = imagesRuta + "Mediana\\" + nombreArchivo + ".jpg";
+                    saveRuta = imagesRuta + "Mediana\\" + Path.GetFileName(nombreArchivo) + ".jpg";
                 }
                 if (cuadro)
                 {
@@ -73,7 +73,24 @@ namespace AutoLote.Helpers
                     }
                     newImage = new Bitmap(image, newAncho, newAlto);
                 }
-                newImage.Save(saveRuta, ImageFormat.Jpeg);
+                switch (opcion)
+                {
+                    case "C":
+                        if (File.Exists(saveRuta))
+                        {
+                            return "false";
+                        }
+                        else
+                        {
+                            newImage.Save(saveRuta, ImageFormat.Jpeg);
+                        }
+                        break;
+                    case "U":
+                        if (File.Exists(saveRuta))
+                            File.Delete(saveRuta);
+                        File.Move(nombreArchivo,saveRuta);
+                        break;
+                }                
                 image.Dispose();
                 newImage.Dispose();
                 return urlImagen;

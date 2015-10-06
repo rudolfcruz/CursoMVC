@@ -65,8 +65,8 @@ namespace AutoLote.Controllers
                     foreach (var imagen in automovil.AutomovilImagenes)
                     {
                         string nombreArchvivo = Guid.NewGuid().ToString();
-                        imagen.UrlImagenMiniatura = guardarimagen.RedimensionarAndGuardar(nombreArchvivo, imagen.ImagenSubida.InputStream, Tamanios.Miniatura, true);
-                        imagen.UrlImagenMediana = guardarimagen.RedimensionarAndGuardar(nombreArchvivo, imagen.ImagenSubida.InputStream, Tamanios.Mediana, true);
+                        //imagen.UrlImagenMiniatura = guardarimagen.RedimensionarAndGuardar(nombreArchvivo, imagen.ImagenSubida.InputStream, Tamanios.Miniatura, true);
+                        //imagen.UrlImagenMediana = guardarimagen.RedimensionarAndGuardar(nombreArchvivo, imagen.ImagenSubida.InputStream, Tamanios.Mediana, true);
                     }
                 }
                 automovil.ModeloID = tipoID;
@@ -103,11 +103,48 @@ namespace AutoLote.Controllers
         // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "AutomovilID,ModelosID,TiposID,TieneAireAcondicionado,Comentarios,Anio,Color,FechaPublicacion,Email")] Automovil automovil)
+        //[Bind(Include = "AutomovilID,ModelosID,TiposID,TieneAireAcondicionado,Comentarios,Anio,Color,FechaPublicacion,Email")] 
+        public ActionResult Edit(Automovil automovil)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(automovil).State = EntityState.Modified;
+                var automovilOriginal = db.Automovils
+                    .Include("Modelo")
+                    .Include("Modelo.Marcas")
+                    .Include("Tipo")
+                    .Include("AutoMovilImagenes")
+                    .FirstOrDefault(r => r.AutomovilID == automovil.AutomovilID);
+
+                var autoMovilEntry = db.Entry(automovilOriginal);
+                autoMovilEntry.CurrentValues.SetValues(automovil);
+
+                if (automovil.AutomovilImagenes != null && automovil.AutomovilImagenes.Any())
+                {
+                    foreach (var imagen in automovil.AutomovilImagenes)
+                    {
+                        //Remover las entidades de imagenes marcadas como ImagenEliminada = true
+                        if (imagen.ImagenEliminada)
+                        {
+                            var imagenOriginal = db.AutoMovilImagenes.FirstOrDefault(r => r.AutoimagenesID == imagen.AutoimagenesID);
+
+                            db.AutoMovilImagenes.Remove(imagenOriginal);
+                        }
+                        else
+                        {
+                            string fileName = Guid.NewGuid().ToString();
+
+                            //imagen.UrlImagenMiniatura = new clsGuardarImagen().RedimensionarAndGuardar(fileName, imagen.ImagenSubida.InputStream, Tamanios.Miniatura, true);
+                            //imagen.UrlImagenMediana = new clsGuardarImagen().RedimensionarAndGuardar(fileName, imagen.ImagenSubida.InputStream, Tamanios.Mediana, true);
+
+                            automovilOriginal.AutomovilImagenes.Add(new AutomovilImagenes()
+                            {
+                                UrlImagenMiniatura = imagen.UrlImagenMiniatura,
+                                UrlImagenMediana = imagen.UrlImagenMediana
+                            });
+                        }
+                    }
+                }
+
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

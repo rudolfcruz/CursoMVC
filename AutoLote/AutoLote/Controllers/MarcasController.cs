@@ -8,11 +8,12 @@ using System.Web;
 using System.Web.Mvc;
 using AutoLote.Models;
 using AutoLote.Helpers;
+using System.IO;
 
 
 namespace AutoLote.Controllers
 {
-    public class MarcasController : Controller
+    public class MarcasController : MessageController
     {
         private DBContext db = new DBContext();
 
@@ -53,11 +54,26 @@ namespace AutoLote.Controllers
                 try
                 {
                     var guardarIagen = new clsGuardarImagen();
-                    string nombreArchivo = Guid.NewGuid().ToString();
-                    marcas.UrlImagen = guardarIagen.RedimensionarAndGuardar(nombreArchivo, marcas.ImagenSubida.InputStream, Tamanios.Miniatura, false);
-                    db.Marcas.Add(marcas);
-                    db.SaveChanges();
-                    return RedirectToAction("Index");
+                    //string nombreArchivo = Guid.NewGuid().ToString();
+                    string nombreArchivo = Path.GetFileName(marcas.ImagenSubida.FileName);
+                    marcas.UrlImagen = guardarIagen.RedimensionarAndGuardar(nombreArchivo, marcas.ImagenSubida.InputStream, Tamanios.Miniatura, false,"C");
+                    if(marcas.UrlImagen == "false")
+                    {
+                        //return View("<script language='javascript' type='text/javascript'>alert('El Archivo ya Existe!');</script>");
+                        //ModelState.AddModelError("Error", "Ex: This login failed");
+                        Warning(string.Format("<b>{0}</b> El Archivo ya Existe.", nombreArchivo), true);
+                        //TempData["Message"] = "El Archivo ya Existe";
+
+                        return View("Create");
+                    }
+                    else
+                    {
+                        db.Marcas.Add(marcas);
+                        db.SaveChanges();
+                        Success(string.Format("<b>{0}</b> El Archivo se guardo Exitosamente.", nombreArchivo), true);
+                        return RedirectToAction("Index");
+                    }
+
                 }
                 catch (Exception ex)
                 {
@@ -94,8 +110,9 @@ namespace AutoLote.Controllers
             if (ModelState.IsValid)
             {
                 var guardarIagen = new clsGuardarImagen();
-                string nombreArchivo = Guid.NewGuid().ToString();
-                marcas.UrlImagen = guardarIagen.RedimensionarAndGuardar(nombreArchivo, marcas.ImagenSubida.InputStream, Tamanios.Miniatura, false);
+                //string nombreArchivo = Guid.NewGuid().ToString();
+                string nombreArchivo = marcas.ImagenSubida.FileName;
+                marcas.UrlImagen = guardarIagen.RedimensionarAndGuardar(nombreArchivo, marcas.ImagenSubida.InputStream, Tamanios.Miniatura, false,"U");
                 db.Entry(marcas).State = EntityState.Modified;
                 db.SaveChanges();
                 return RedirectToAction("Index");

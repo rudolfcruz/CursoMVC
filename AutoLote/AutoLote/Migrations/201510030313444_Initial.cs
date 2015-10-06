@@ -3,10 +3,23 @@ namespace AutoLote.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class NuevaBaseDatos : DbMigration
+    public partial class Initial : DbMigration
     {
         public override void Up()
         {
+            CreateTable(
+                "dbo.AutomovilImagenes",
+                c => new
+                    {
+                        AutoimagenesID = c.Int(nullable: false, identity: true),
+                        AutomovilID = c.Int(nullable: false),
+                        UrlImagenMiniatura = c.String(),
+                        UrlImagenMediana = c.String(),
+                    })
+                .PrimaryKey(t => t.AutoimagenesID)
+                .ForeignKey("dbo.Automovils", t => t.AutomovilID, cascadeDelete: true)
+                .Index(t => t.AutomovilID);
+            
             CreateTable(
                 "dbo.Automovils",
                 c => new
@@ -26,19 +39,6 @@ namespace AutoLote.Migrations
                 .ForeignKey("dbo.Tipos", t => t.TipoID, cascadeDelete: true)
                 .Index(t => t.ModeloID)
                 .Index(t => t.TipoID);
-            
-            CreateTable(
-                "dbo.AutomovilImagenes",
-                c => new
-                    {
-                        AutoimagenesID = c.Int(nullable: false, identity: true),
-                        AutomovilID = c.Int(nullable: false),
-                        UrlImagenMiniatura = c.String(),
-                        UrlImagenMediana = c.String(),
-                    })
-                .PrimaryKey(t => t.AutoimagenesID)
-                .ForeignKey("dbo.Automovils", t => t.AutomovilID, cascadeDelete: true)
-                .Index(t => t.AutomovilID);
             
             CreateTable(
                 "dbo.Modelos",
@@ -81,14 +81,14 @@ namespace AutoLote.Migrations
             DropForeignKey("dbo.Modelos", "MarcaId", "dbo.Marcas");
             DropForeignKey("dbo.AutomovilImagenes", "AutomovilID", "dbo.Automovils");
             DropIndex("dbo.Modelos", new[] { "MarcaId" });
-            DropIndex("dbo.AutomovilImagenes", new[] { "AutomovilID" });
             DropIndex("dbo.Automovils", new[] { "TipoID" });
             DropIndex("dbo.Automovils", new[] { "ModeloID" });
+            DropIndex("dbo.AutomovilImagenes", new[] { "AutomovilID" });
             DropTable("dbo.Tipos");
             DropTable("dbo.Marcas");
             DropTable("dbo.Modelos");
-            DropTable("dbo.AutomovilImagenes");
             DropTable("dbo.Automovils");
+            DropTable("dbo.AutomovilImagenes");
         }
     }
 }

@@ -148,6 +148,5 @@ D:\CursoMVC\AutoLote\AutoLote\bin\es\Microsoft.Owin.Security.MicrosoftAccount.re
 D:\CursoMVC\AutoLote\AutoLote\obj\Debug\AutoLote.csprojResolveAssemblyReference.cache
 D:\CursoMVC\AutoLote\AutoLote\obj\Debug\AutoLote.dll
 D:\CursoMVC\AutoLote\AutoLote\obj\Debug\AutoLote.pdb
-D:\CursoMVC\AutoLote\AutoLote\obj\Debug\AutoLote.Migrations.NuevaBaseDatos.resources
+D:\CursoMVC\AutoLote\AutoLote\obj\Debug\AutoLote.Migrations.Initial.resources
 D:\CursoMVC\AutoLote\AutoLote\obj\Debug\AutoLote.csproj.GenerateResource.Cache
-D:\CursoMVC\AutoLote\AutoLote\obj\Debug\AutoLote.Migrations.DosBaseDatos.resources

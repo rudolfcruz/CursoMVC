@@ -13,9 +13,9 @@ $(document).on("click", ".deleteRow", function () {
 
     var gui = GetRandomGUI();
     var htm = '<div class="editorRow">';
-    htm += '<input type="hidden" autoComplete = "off" name = "Automovilimagenes.index" value = "' + gui + '"/>';
-    htm += '<input type="hidden" autoComplete = "off" name = "Automovilimagenes[' + gui + '].Id" value="' + id + '"/>';
-    htm += '<input type="hidden" autoComplete = "off" name = "Automovilimagenes[' + gui + '].ImagenEliminada" value="true"/></div>';
+    htm += '<input type="hidden" autoComplete = "off" name = "AutomovilImagenes.index" value = "' + gui + '"/>';
+    htm += '<input type="hidden" autoComplete = "off" name = "AutomovilImagenes[' + gui + '].AutoimagenesID" value="' + id + '"/>';
+    htm += '<input type="hidden" autoComplete = "off" name = "AutomovilImagenes[' + gui + '].ImagenEliminada" value="true"/></div>';
     $('#Automovilimagenes').append(htm);
 
     return false;
